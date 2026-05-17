@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MoonBrew Cafe | Premium Coffee & Aesthetic Space</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,400&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="logo">Moon<span>Brew</span></div>
+        <ul class="nav-links">
+            <li><a href="#home">Home</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+        <div class="nav-icons">
+            <div id="dark-mode-toggle" title="Ubah Tema"><i class="fas fa-moon"></i></div>
+            <div class="cart-icon" onclick="toggleCart()" title="Keranjang">
+                <i class="fas fa-shopping-bag"></i>
+                <span id="cart-count">0</span>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <span class="hero-tag">Premium Coffee Experience</span>
+            <h1>Sajikan Rasa Premium, <br>Temukan Jiwa Modern.</h1>
+            <p>Ruang hangat bagi para penikmat kopi, tempat di mana biji kopi pilihan bertemu dengan atmosfer estetis anak muda.</p>
+            <a href="#menu" class="btn-premium">Pesan Sekarang</a>
+        </div>
+    </section>
+
+    <section id="menu" class="menu-section">
+        <h2 class="section-title">Eksplorasi Menu Kami</h2>
+        
+        <div class="menu-controls">
+            <div class="search-box">
+                <i class="fas fa-search"></i>
+                <input type="text" id="search-input" placeholder="Cari kopi atau dessert favoritmu..." onkeyup="searchMenu()">
+            </div>
+            <div class="filter-buttons">
+                <button class="filter-btn active" onclick="filterCategory('all')">Semua</button>
+                <button class="filter-btn" onclick="filterCategory('coffee')">Kopi</button>
+                <button class="filter-btn" onclick="filterCategory('non-coffee')">Non-Kopi</button>
+                <button class="filter-btn" onclick="filterCategory('dessert')">Dessert</button>
+            </div>
+        </div>
+
+        <div class="menu-grid" id="menu-container">
+            <div class="menu-card" data-category="coffee" data-name="velvet espresso latte">
+                <div class="menu-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1541167760496-1628856ab772?q=80&w=600" alt="Velvet Latte">
+                </div>
+                <h3>Velvet Espresso Latte</h3>
+                <p class="menu-desc">Espresso premium berbalut susu lembut dengan sentuhan vanila murni.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 35.000</span>
+                    <button class="add-btn" onclick="addToCart('Velvet Espresso Latte', 35000)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="menu-card" data-category="coffee" data-name="salted caramel macchiato">
+                <div class="menu-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1485808191679-5f86510681a2?q=80&w=600" alt="Macchiato">
+                </div>
+                <h3>Salted Caramel Macchiato</h3>
+                <p class="menu-desc">Perpaduan espresso mantap, saus karamel premium, dan sejumput garam laut.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 38.000</span>
+                    <button class="add-btn" onclick="addToCart('Salted Caramel Macchiato', 38000)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="menu-card" data-category="non-coffee" data-name="kyoto matcha glaze">
+                <div class="menu-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1536256263959-770b48d82b0a?q=80&w=600" alt="Matcha">
+                </div>
+                <h3>Kyoto Matcha Glaze</h3>
+                <p class="menu-desc">Matcha otentik Jepang berpadu dengan susu premium segar gurih.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 34.000</span>
+                    <button class="add-btn" onclick="addToCart('Kyoto Matcha Glaze', 34000)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+            <div class="menu-card" data-category="dessert" data-name="croissant gold leaf">
+                <div class="menu-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1555507036-ab1f4038808a?q=80&w=600" alt="Croissant">
+                </div>
+                <h3>Croissant Gold Leaf</h3>
+                <p class="menu-desc">Pastry renyah berlapis mentega Prancis bertekstur lembut di dalam.</p>
+                <div class="card-footer">
+                    <span class="price">Rp 28.000</span>
+                    <button class="add-btn" onclick="addToCart('Croissant Gold Leaf', 28000)"><i class="fas fa-plus"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <div id="cart-sidebar" class="cart-sidebar">
+        <div class="cart-header">
+            <h3>Pesanan Anda</h3>
+            <i class="fas fa-times close-cart" onclick="toggleCart()"></i>
+        </div>
+        <div id="cart-items" class="cart-items">
+            <p class="empty-msg">Keranjang Anda masih kosong.</p>
+        </div>
+        <div class="cart-total-box">
+            <div class="total-line">
+                <span>Subtotal</span>
+                <span id="cart-total">Rp 0</span>
+            </div>
+            <button class="checkout-btn" onclick="openPaymentModal()">Lanjut ke Pembayaran</button>
+        </div>
+    </div>
+
+    <div id="payment-modal" class="modal">
+        <div class="modal-content">
+            <i class="fas fa-times close-modal" onclick="closePaymentModal()"></i>
+            <h3>Metode Pembayaran Premium</h3>
+            <p class="modal-total">Total Tagihan: <span id="modal-total-val">Rp 0</span></p>
+            
+            <div class="payment-tabs">
+                <button class="pay-tab active" onclick="switchPayment('qris')">QRIS Modern</button>
+                <button class="pay-tab" onclick="switchPayment('dana')">DANA Instant</button>
+            </div>
+
+            <div id="qris-area" class="payment-detail">
+                <p>Pindai kode QR di bawah ini untuk membayar:</p>
+                <div class="qr-code-box">
+                    <div class="qr-header">QRIS NOMINAL OTOMATIS</div>
+                    <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=MoonBrewCafePremiumPayment" alt="QRIS Code">
+                    <div class="qr-footer">MoonBrew Cafe Official</div>
+                </div>
+            </div>
+
+            <div id="dana-area" class="payment-detail" style="display: none;">
+                <p>Silakan transfer langsung ke nomor DANA bisnis kami:</p>
+                <div class="dana-box">
+                    <i class="fab fa-cc-paypal font-dana-icon"></i>
+                    <h4>0812-3456-7890</h4>
+                    <p>a.n. PT MoonBrew Karya Indonesia</p>
+                </div>
+            </div>
+
+            <button class="confirm-pay-btn" onclick="processPaymentDone()">Konfirmasi Sudah Bayar</button>
+        </div>
+    </div>
+
+    <section id="about" class="about-section">
+        <div class="about-grid">
+            <div class="about-img animate-on-scroll">
+                <img src="https://images.unsplash.com/photo-1521017432531-fbd92d768814?q=80&w=800" alt="Interior Cafe">
+            </div>
+            <div class="about-text">
+                <span class="gold-text">Our Story</span>
+                <h2>Seni di Balik Secangkir Kenikmatan</h2>
+                <p>MoonBrew lahir dari visi untuk menciptakan ruang di mana arsitektur modern minimalis bertemu dengan tradisi kopi artisan terbaik. Kami hanya menyajikan biji kopi *Single Origin* pilihan yang dipanggang secara presisi oleh ahli kopi berpengalaman.</p>
+                <p>Bukan sekadar tempat singgah, MoonBrew dirancang sebagai katalisator kreativitas, ruang diskusi, dan saksi dari memori-memori estetik anak muda urban hari ini.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="testimonials">
+        <h2 class="section-title">Apa Kata Mereka?</h2>
+        <div class="testimonial-grid">
+            <div class="testi-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Kopi Velvet Latte-nya juara banget! Vibe cafenya tenang, estetik parah buat WFH atau sekadar foto Instagram."</p>
+                <h4>- Adrian Utama, UI Designer</h4>
+            </div>
+            <div class="testi-card">
+                <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+                <p>"Croissant-nya renyah di luar, lembut di dalam. Sangat recommended buat tempat kumpul bareng sirkel."</p>
+                <h4>- Clarissa M., Content Creator</h4>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact-section">
+        <h2 class="section-title">Hubungi & Kunjungi Kami</h2>
+        <div class="contact-grid">
+            <div class="contact-info">
+                <h3>MoonBrew Headquarters</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Jl. Raya Ambunten, Ambunten, Sumenep, Jawa Timur</p>
+                <p><i class="fas fa-clock"></i> Setiap Hari: 08:00 AM - 11:00 PM</p>
+                <div class="social-buttons">
+                    <a href="https://wa.me/6285334752809" target="_blank" class="social-btn wa"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+                    <a href="https://instagram.com" target="_blank" class="social-btn ig"><i class="fab fa-instagram"></i> Instagram</a>
+                </div>
+            </div>
+            <div class="map-box">
+                <iframe src="https://maps.google.com/maps?q=Jl.%20Raya%20Ambunten,%20Ambunten,%20Sumenep,%20Jawa%20Timur&t=&z=15&ie=UTF-8&iwloc=&output=embed" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <p>&copy; 2026 MoonBrew Cafe. Crafted with Luxury Aesthetic. All Rights Reserved.</p>
+    </footer>
+
+    <button id="backToTop" onclick="scrollToTop()"><i class="fas fa-arrow-up"></i></button>
+
+    <script src="script.js"></script>
+</body>
+</html>
